@@ -1,0 +1,7 @@
+gen.py
+geckodriver.log
+facts.py
+main.py
+.gitignore.swp
+.main.py.swp
+.git
