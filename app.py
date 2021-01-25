@@ -133,7 +133,7 @@ def change_wallet():
     print(curr_addr_val)
 
     try:
-        if curr_addr != bch_wallet:
+        if curr_addr_val != bch_wallet:
             curr_addr.send_keys(Key.CONTROL + "a")
             curr.addr.send_keys(Key.DELETE)
 
