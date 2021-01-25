@@ -15,6 +15,7 @@ opts.add_argument("--no-sandbox")
 opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
 
 driver = webdriver.Chrome(chrome_options=opts)
+bch_wallet = "bitcoincash:qrgdukh0as64t5cjl37jq8cpm3hca4605q8jzk2xaj"
 stored_cookies = ["noisecash_session", "XSRF-TOKEN", "session_entropy"]
 
 
@@ -122,33 +123,28 @@ def post():
         print(e)
 
 
-def img_post():
+def change_wallet():
+
+    if driver.current_url != "https://noise.cash/settings/wallet":
+        driver.get("https://noise.cash/settings/wallet")
+
+    curr_addr = driver.find_element_by_xpath('//*[@id="cashaddr"]')
+    curr_addr_val = curr_addr.get_attribute("value")
+    print(curr_addr_val)
 
     try:
+        if curr_addr != bch_wallet:
+            curr_addr.send_keys(Key.CONTROL + "a")
+            curr.addr.send_keys(Key.DELETE)
 
-        if driver.current_url != "https://noise.cash/explore":
-            driver.get("https://noise.cash/explore")
+            curr_addr.send_keys(bch_wallet)
+            driver.find_element_by_xpath(
+                "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button"
+            ).click()
+            print("changed wallet address")
 
-        img = random.choice(os.listdir("imgs"))
-        img_input = driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[1]/div/div/div/div/div[2]/input"
-        ).send_keys(os.path.join(str(Path().absolute()) + "/imgs", img))
-        time.sleep(5)
-
-        txt_area = driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[1]/div/div/textarea"
-        )
-
-        txt_area.click()
-        time.sleep(1)
-
-        txt_area.send_keys("Fun Fact!")
-        post_btn = driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[1]/div/div/div/div[3]/button"
-        ).click()
-
-    except Exception as e:
-        print(e)
+    except:
+        pass
 
 
 if __name__ == "__main__":
@@ -169,6 +165,8 @@ if __name__ == "__main__":
 
                 issue_handler()
                 post()
+
+                change_wallet()
 
                 logout()
                 # driver.close()
