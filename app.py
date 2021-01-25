@@ -1,3 +1,4 @@
+from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 import time
 import os
@@ -134,8 +135,8 @@ def change_wallet():
 
     try:
         if curr_addr_val != bch_wallet:
-            curr_addr.send_keys(Key.CONTROL + "a")
-            curr.addr.send_keys(Key.DELETE)
+            curr_addr.send_keys(Keys.CONTROL + "a")
+            curr.addr.send_keys(Keys.DELETE)
 
             curr_addr.send_keys(bch_wallet)
             driver.find_element_by_xpath(
