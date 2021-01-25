@@ -143,8 +143,8 @@ def change_wallet():
             ).click()
             print("changed wallet address")
 
-    except:
-        pass
+    except Exception as e:
+        print(e)
 
 
 if __name__ == "__main__":
