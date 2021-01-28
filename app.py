@@ -6,8 +6,11 @@ import random
 import numpy as np
 import json
 
+with open('http_proxies.txt', 'r') as f:
+    proxy = random.choice(f.readlines()).split()[0]
+
 opts = webdriver.ChromeOptions()
-# opts.add_argument("--proxy-server=%s" % proxy)
+opts.add_argument("--proxy-server=%s" % proxy)
 opts.add_argument("--headless")
 opts.add_argument("window-size=1920,1080")
 opts.add_argument("start-maximized")
@@ -148,6 +151,38 @@ def change_wallet():
         print(e)
 
 
+def random_tip():
+
+    if driver.current_url != "https://noise.cash/explore":
+        driver.get("https://noise.cash/explore")
+
+    try:
+        time.sleep(10)
+        driver.find_element_by_xpath(
+            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div/div[1]"
+        ).click()
+        time.sleep(3)
+        driver.find_element_by_xpath(
+            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[1]/button"
+        ).click()
+        time.sleep(3)
+        for i in range(0, 100):
+            driver.find_element_by_xpath(
+                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[5]/input"
+            ).send_keys(Keys.ARROW_RIGHT)
+        time.sleep(3)
+        driver.find_element_by_xpath(
+            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]"
+        ).click()
+        time.sleep(3)
+        driver.find_element_by_xpath(
+            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button"
+        ).click()
+
+    except Exception as e:
+        pass
+
+
 if __name__ == "__main__":
 
     user_count = 1
@@ -167,6 +202,7 @@ if __name__ == "__main__":
                 issue_handler()
                 post()
 
+                random_tip()
                 change_wallet()
 
                 logout()
