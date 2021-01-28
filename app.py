@@ -6,11 +6,8 @@ import random
 import numpy as np
 import json
 
-with open('http_proxies.txt', 'r') as f:
-    proxy = random.choice(f.readlines()).split()[0]
-
 opts = webdriver.ChromeOptions()
-opts.add_argument("--proxy-server=%s" % proxy)
+# opts.add_argument("--proxy-server=%s" % proxy)
 opts.add_argument("--headless")
 opts.add_argument("window-size=1920,1080")
 opts.add_argument("start-maximized")
