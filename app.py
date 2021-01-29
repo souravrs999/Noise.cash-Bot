@@ -158,23 +158,33 @@ def random_tip():
         driver.find_element_by_xpath(
             "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div/div[1]"
         ).click()
-        time.sleep(3)
+        time.sleep(2)
         driver.find_element_by_xpath(
             "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[1]/button"
         ).click()
-        time.sleep(3)
-        for i in range(0, 100):
-            driver.find_element_by_xpath(
-                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[5]/input"
-            ).send_keys(Keys.ARROW_RIGHT)
-        time.sleep(3)
+        time.sleep(2)
+        try:
+            for i in range(0, 100):
+                driver.find_element_by_xpath(
+                    "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[5]/input"
+                ).send_keys(Keys.ARROW_RIGHT)
+            time.sleep(2)
+
+        except:
+            pass
+
         driver.find_element_by_xpath(
             "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]"
         ).click()
-        time.sleep(3)
-        driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button"
-        ).click()
+        time.sleep(2)
+        try:
+            driver.find_element_by_xpath(
+                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button"
+            ).click()
+        except:
+            driver.find_element_by_xpath(
+                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[4]/div[2]/div/button"
+            ).click()
 
     except Exception as e:
         pass
