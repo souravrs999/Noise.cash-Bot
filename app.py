@@ -16,8 +16,16 @@ opts.add_argument("--no-sandbox")
 opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
 
 driver = webdriver.Chrome(chrome_options=opts)
-bch_wallet = "bitcoincash:qrgdukh0as64t5cjl37jq8cpm3hca4605q8jzk2xaj"
 stored_cookies = ["noisecash_session", "XSRF-TOKEN", "session_entropy"]
+
+
+def bch_wallet():
+
+    with open("wallets.txt", "r") as f:
+        wallets = [x.split("\n")[0] for x in f.readlines()]
+
+    wallet = random.choice(wallets)
+    return "bitcoincash:" + str(wallet)
 
 
 def login(mail):
@@ -110,15 +118,20 @@ def post():
         )
 
         txt_area.click()
-        time.sleep(1)
+        time.sleep(2)
 
         txt_area.send_keys(random_quote)
         print("\n" + random_quote)
 
-        post_btn = driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[1]/div/div/div/div[3]/button"
-        ).click()
-        # time.sleep(60)
+        try:
+            driver.find_element_by_xpath(
+                "/html/body/div/div/main/div/div/div[1]/div/div/div[1]/div[2]/button"
+            ).click()
+        except Exception as e:
+            driver.find_element_by_xpath(
+                "/html/body/div/div/main/div/div/div[1]/div/div/div[1]/div[3]/button"
+            ).click()
+        time.sleep(5)
 
     except Exception as e:
         print(e)
@@ -133,19 +146,16 @@ def change_wallet():
     curr_addr_val = curr_addr.get_attribute("value")
     print(curr_addr_val)
 
-    try:
-        if curr_addr_val != bch_wallet:
-            curr_addr.send_keys(Keys.CONTROL + "a")
-            curr_addr.send_keys(Keys.DELETE)
+    curr_addr.send_keys(Keys.CONTROL + "a")
+    curr_addr.send_keys(Keys.DELETE)
 
-            curr_addr.send_keys(bch_wallet)
-            driver.find_element_by_xpath(
-                "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button"
-            ).click()
-            print("changed wallet address")
+    curr_addr.send_keys(bch_wallet())
+    driver.find_element_by_xpath(
+        "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button"
+    ).click()
 
-    except Exception as e:
-        print(e)
+    time.sleep(4)
+    print("changed wallet address")
 
 
 def random_tip():
