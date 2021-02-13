@@ -1,3 +1,4 @@
+from selenium.webdriver.common.proxy import Proxy, ProxyType
 from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 import time
@@ -6,17 +7,37 @@ import random
 import numpy as np
 import json
 
-opts = webdriver.ChromeOptions()
-# opts.add_argument("--proxy-server=%s" % proxy)
-opts.add_argument("--headless")
-opts.add_argument("window-size=1920,1080")
-opts.add_argument("start-maximized")
-opts.add_argument("--disable-dev-shm-usage")
-opts.add_argument("--no-sandbox")
-opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
 
-driver = webdriver.Chrome(chrome_options=opts)
-stored_cookies = ["noisecash_session", "XSRF-TOKEN", "session_entropy"]
+def get_opts():
+    opts = webdriver.ChromeOptions()
+
+    opts.add_argument("--headless")
+    opts.add_argument("disable-infobars")
+    opts.add_argument("window-size=1920,1080")
+    opts.add_argument("start-maximized")
+    opts.add_argument("--disable-dev-shm-usage")
+    opts.add_argument("--no-sandbox")
+    opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
+    return opts
+
+
+def proxy():
+
+    with open("http_proxies.txt", "r") as f:
+        proxy = random.choice([x.split("\n")[0] for x in f.readlines()])
+
+    cap = DesiredCapabilities.CHROME.copy()
+    cap["goog:loggingPrefs"] = {"perfomance": "ALL"}
+    cap["proxy"] = {
+        "httpProxy": proxy,
+        "ftpProxy": proxy,
+        "sslProxy": proxy,
+        "noProxy": None,
+        "proxyType": "MANUAL",
+        "class": "org.openqa.selenium.Proxy",
+        "autodetect": False,
+    }
+    return cap
 
 
 def bch_wallet():
@@ -25,7 +46,7 @@ def bch_wallet():
         wallets = [x.split("\n")[0] for x in f.readlines()]
 
     wallet = random.choice(wallets)
-    return "bitcoincash:" + str(wallet)
+    return str(wallet)
 
 
 def login(mail):
@@ -209,6 +230,10 @@ if __name__ == "__main__":
 
     while True:
         for user in users:
+            driver = webdriver.Chrome(
+                chrome_options=get_opts(), desired_capabilities=proxy()
+            )
+
             try:
                 user = user.split("\n")[0].split(",")
                 print(f"User: [{user_count}] {user[0]}")
@@ -223,10 +248,10 @@ if __name__ == "__main__":
                 change_wallet()
 
                 logout()
-                # driver.close()
-                time.sleep(1)
                 user_count += 1
+
+                driver.close()
 
             except Exception as e:
                 print(e)
-                pass
+                driver.close()
