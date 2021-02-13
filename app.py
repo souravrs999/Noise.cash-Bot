@@ -230,9 +230,7 @@ if __name__ == "__main__":
 
     while True:
         for user in users:
-            driver = webdriver.Chrome(
-                chrome_options=get_opts(), desired_capabilities=proxy()
-            )
+            driver = webdriver.Chrome(chrome_options=get_opts())
 
             try:
                 user = user.split("\n")[0].split(",")
