@@ -26,7 +26,7 @@ def proxy():
     with open("http_proxies.txt", "r") as f:
         proxy = random.choice([x.split("\n")[0] for x in f.readlines()])
 
-    cap = DesiredCapabilities.CHROME.copy()
+    cap = webdriver.common.desired_capabilities.DesiredCapabilities.CHROME.copy()
     cap["goog:loggingPrefs"] = {"perfomance": "ALL"}
     cap["proxy"] = {
         "httpProxy": proxy,
