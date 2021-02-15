@@ -61,8 +61,7 @@ def login(mail):
         driver.get("https://noise.cash/login")
 
     if driver.current_url != "https://noise.cash/login":
-        for cookie in stored_cookies:
-            driver.delete_cookie(cookie)
+        driver.delete_all_cookies()
         driver.get("https://noise.cash/login")
 
     try:
