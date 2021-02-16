@@ -6,7 +6,6 @@ import os
 import random
 import numpy as np
 import json
-import pickle
 
 def get_opts():
     opts = webdriver.ChromeOptions()
@@ -52,45 +51,35 @@ def bch_wallet():
 def login(mail):
     driver.get("https://noise.cash/")
 
-    if not os.path.exists(mail):
-        try:
-            login_page = driver.find_element_by_xpath(
-                "/html/body/div/div/nav/div/div/div[2]/div/a[1]"
-            ).click()
+    try:
+        login_page = driver.find_element_by_xpath(
+            "/html/body/div/div/nav/div/div/div[2]/div/a[1]"
+        ).click()
 
-        except Exception:
-            driver.get("https://noise.cash/login")
+    except Exception:
+        driver.get("https://noise.cash/login")
 
-        if driver.current_url != "https://noise.cash/login":
-            driver.delete_all_cookies()
-            driver.get("https://noise.cash/login")
+    if driver.current_url != "https://noise.cash/login":
+        driver.delete_all_cookies()
+        driver.get("https://noise.cash/login")
 
-        try:
-            email_field = driver.find_element_by_xpath('//*[@id="email"]').send_keys(
-                mail
-            )
-            password_field = driver.find_element_by_xpath(
-                '//*[@id="password"]'
-            ).send_keys("hadron*5000")
+    try:
+        email_field = driver.find_element_by_xpath('//*[@id="email"]').send_keys(
+            mail
+        )
+        password_field = driver.find_element_by_xpath(
+            '//*[@id="password"]'
+        ).send_keys("hadron*5000")
 
-            login_btn = driver.find_element_by_xpath(
-                "/html/body/div/div/div[2]/form/div[4]/button"
-            ).click()
-            print("trying to login")
-            time.sleep(5)
-            with open(mail, "wb") as f:
-                pickle.dump(driver.get_cookies(), f)
-
-        except Exception:
-            print("could not login")
-            pass
-    else:
-        with open(mail, "rb") as f:
-            cookies = pickle.load(f)
-            for cookie in cookies:
-                driver.add_cookie(cookie)
-        driver.refresh()
+        login_btn = driver.find_element_by_xpath(
+            "/html/body/div/div/div[2]/form/div[4]/button"
+        ).click()
+        print("trying to login")
         time.sleep(5)
+
+    except Exception:
+        print("could not login")
+        pass
 
 def logout():
 
