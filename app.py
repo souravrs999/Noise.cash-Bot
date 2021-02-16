@@ -227,9 +227,10 @@ if __name__ == "__main__":
         users = f.readlines()
         f.close()
 
+    driver = webdriver.Chrome(chrome_options=get_opts())
+
     while True:
         for user in users:
-            driver = webdriver.Chrome(chrome_options=get_opts())
 
             try:
                 user = user.split("\n")[0].split(",")
@@ -247,8 +248,10 @@ if __name__ == "__main__":
                 logout()
                 user_count += 1
 
-                driver.close()
+                # driver.close()
 
             except Exception as e:
                 print(e)
-                driver.close()
+                pass
+            
+    driver.close()
