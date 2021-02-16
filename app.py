@@ -52,7 +52,7 @@ def bch_wallet():
 def login(mail):
     driver.get("https://noise.cash/")
 
-    if not os.path.exist(mail):
+    if not os.path.exists(mail):
         try:
             login_page = driver.find_element_by_xpath(
                 "/html/body/div/div/nav/div/div/div[2]/div/a[1]"
