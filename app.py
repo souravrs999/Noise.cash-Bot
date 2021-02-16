@@ -78,7 +78,7 @@ def login(mail):
             ).click()
             print("trying to login")
             time.sleep(5)
-            with open(mail, "rb") as f:
+            with open(mail, "wb") as f:
                 pickle.dump(driver.get_cookies(), f)
 
         except Exception:
