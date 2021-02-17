@@ -1,5 +1,8 @@
+ElizabethSalazar662,ElizabethSalazar662@hotmail.com
+KatieRichardson245,KatieRichardson245@hotmail.com
+JamesReese700,JamesReese700@hotmail.com
+ElizabethDavis938,ElizabethDavis938@hotmail.com
 AmyAllen600,AmyAllen600@hotmail.com
-BrettKhan859,BrettKhan859@hotmail.com
 MarkPonce261,MarkPonce261@hotmail.com
 JohnArmstrong134,JohnArmstrong134@hotmail.com
 JasonStewart520,JasonStewart520@hotmail.com
@@ -9,6 +12,9 @@ CarmenGordon416,CarmenGordon416@protonmail.com
 BrandonRodriguez840,BrandonRodriguez840@protonmail.com
 RachelPerez780,RachelPerez780@protonmail.com
 CoreyPeters152,CoreyPeters152@protonmail.com
+JuanFisher788,JuanFisher788@outlook.com
+DannyJones375,DannyJones375@outlook.com
+LoriWright252,LoriWright252@protonmail.com
 SandraRoach345,SandraRoach345@outlook.com
 KristenHurley452,KristenHurley452@outlook.com
 AllenBlackwell447,AllenBlackwell447@outlook.com
@@ -38,7 +44,6 @@ soomeya,soomeyaadonis@yahoo.com
 adrian,adrianagapito@aol.com
 sumesh,sumeshraj@fastmail.com
 binod,binodkumar65@protonmail.com
-khushbu,kushbhu@tutanota.com
 reema,reemakallingal@protonmail.ch
 joseph,josephaman@inbox.lv
 tarmyautopeev,wburghul.burgh@brandcommerce.biz
