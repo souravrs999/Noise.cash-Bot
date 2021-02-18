@@ -1,5 +1,7 @@
-from selenium.webdriver.common.proxy import Proxy, ProxyType
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from selenium import webdriver
 import time
 import os
@@ -7,13 +9,14 @@ import random
 import numpy as np
 import json
 
+
 def get_opts():
     opts = webdriver.ChromeOptions()
     prefs = {"profile.managed_default_content_settings.images": 2}
 
     opts.add_argument("--headless")
     opts.add_argument("--disable-infobars")
-    # opts.add_argument("window-size=1600,900")
+    opts.add_argument("window-size=1920,1080")
     opts.add_argument("start-maximized")
     opts.add_argument("--disable-dev-shm-usage")
     opts.add_argument("--no-sandbox")
@@ -22,6 +25,7 @@ def get_opts():
     opts.add_argument("--log-level-3")
     opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     return opts
+
 
 def bch_wallet():
 
@@ -33,59 +37,69 @@ def bch_wallet():
 
 
 def login(mail):
-    driver.get("https://noise.cash/")
 
-    try:
-        login_page = driver.find_element_by_xpath(
-            "/html/body/div/div/nav/div/div/div[2]/div/a[1]"
-        ).click()
+    driver.delete_all_cookies()
+    driver.refresh()
+    driver.get("https://noise.cash/login")
 
-    except Exception:
-        driver.get("https://noise.cash/login")
+    email_field = wait.until(
+        ec.presence_of_element_located((By.XPATH, '//*[@id="email"]')),
+        message="could not locate email field",
+    )
+    email_field.send_keys(mail)
+    pswd_field = wait.until(
+        ec.presence_of_element_located((By.XPATH, '//*[@id="password"]')),
+        message="could not locate password field",
+    )
+    pswd_field.send_keys("hadron*5000")
 
-    if driver.current_url != "https://noise.cash/login":
-        driver.delete_all_cookies()
-        driver.refresh()
-        driver.get("https://noise.cash/login")
+    login_btn = wait.until(
+        ec.element_to_be_clickable(
+            (By.XPATH, "/html/body/div/div/div[2]/form/div[4]/button")
+        ),
+        message="could not find login btn",
+    )
+    login_btn.click()
+    print("trying to login")
 
-    try:
-        email_field = driver.find_element_by_xpath('//*[@id="email"]').send_keys(
-            mail
-        )
-        password_field = driver.find_element_by_xpath(
-            '//*[@id="password"]'
-        ).send_keys("hadron*5000")
-
-        login_btn = driver.find_element_by_xpath(
-            "/html/body/div/div/div[2]/form/div[4]/button"
-        ).click()
-        print("trying to login")
-        time.sleep(5)
-
-    except Exception:
-        print("could not login")
-        pass
 
 def logout():
 
     if driver.current_url != "https://noise.cash/explore":
         driver.get("https://noise.cash/explore")
 
-    user = driver.find_element_by_xpath(
-        "/html/body/div/div/nav/div/div/div[3]/div[2]/div/div[1]/button"
-    ).click()
-    time.sleep(1)
-    logout = driver.find_element_by_xpath(
-        "/html/body/div/div/nav/div/div/div[3]/div[2]/div[2]/div[2]/div/div/form/a"
-    ).click()
+    user = wait.until(
+        ec.element_to_be_clickable(
+            (By.XPATH, "/html/body/div/div/nav/div/div/div[3]/div[2]/div/div[1]/button")
+        ),
+        message="could not find avatar",
+    )
+    user.click()
+    logout = wait.until(
+        ec.element_to_be_clickable(
+            (
+                By.XPATH,
+                "/html/body/div/div/nav/div/div/div[3]/div[2]/div[2]/div[2]/div/div/form/a",
+            )
+        ),
+        message="could not find logout btn",
+    )
+    logout.click()
     print("logging out")
 
 
 def issue_handler():
 
     try:
-        tip_modal = driver.find_element_by_xpath("/html/body/div[2]/div")
-        driver.find_element_by_xpath("/html/body/div[2]/div/div[3]/button[1]").click()
+        tip_modal = wait.until(
+            ec.presence_of_element_located((By.XPATH, "/html/body/div[2]/div")),
+            message="no modal",
+        )
+        wait.until(
+            ec.presence_of_element_located(
+                (By.XPATH, "/html/body/div[2]/div/div[3]/button[1]")
+            )
+        ).click()
         print("closed_modal")
     except Exception as e:
         pass
@@ -117,28 +131,37 @@ def post():
             driver.get("https://noise.cash/explore")
 
         random_quote = get_random_quote()
-        txt_area = driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[1]/div/div/textarea"
+        txt_area = wait.until(
+            ec.presence_of_element_located(
+                (By.XPATH, "/html/body/div/div/main/div/div/div[1]/div/div/textarea")
+            ),
+            message="could not find textarea",
         )
-
         txt_area.click()
-        time.sleep(2)
-
         txt_area.send_keys(random_quote)
         print("\n" + random_quote)
 
         try:
-            driver.find_element_by_xpath(
-                "/html/body/div/div/main/div/div/div[1]/div/div/div[1]/div[2]/button"
+            wait.until(
+                ec.presence_of_element_located(
+                    (
+                        By.XPATH,
+                        "/html/body/div/div/main/div/div/div[1]/div/div/div[1]/div[2]/button",
+                    )
+                )
             ).click()
         except Exception as e:
-            driver.find_element_by_xpath(
-                "/html/body/div/div/main/div/div/div[1]/div/div/div[1]/div[3]/button"
+            wait.until(
+                ec.presence_of_element_located(
+                    (
+                        By.XPATH,
+                        "/html/body/div/div/main/div/div/div[1]/div/div/div[1]/div[3]/button",
+                    )
+                )
             ).click()
-        time.sleep(5)
 
     except Exception as e:
-        print(e)
+        print("could not find button")
 
 
 def change_wallet():
@@ -146,7 +169,9 @@ def change_wallet():
     if driver.current_url != "https://noise.cash/settings/wallet":
         driver.get("https://noise.cash/settings/wallet")
 
-    curr_addr = driver.find_element_by_xpath('//*[@id="cashaddr"]')
+    curr_addr = wait.until(
+        ec.presence_of_element_located((By.XPATH, '//*[@id="cashaddr"]'))
+    )
     curr_addr_val = curr_addr.get_attribute("value")
     print(curr_addr_val)
 
@@ -154,11 +179,16 @@ def change_wallet():
     curr_addr.send_keys(Keys.DELETE)
 
     curr_addr.send_keys(bch_wallet())
-    driver.find_element_by_xpath(
-        "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button"
+    wait.until(
+        ec.presence_of_element_located(
+            (
+                By.XPATH,
+                "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button",
+            )
+        ),
+        message="could not find save button",
     ).click()
-
-    time.sleep(4)
+    time.sleep(3)
     print("changed wallet address")
 
 
@@ -168,36 +198,56 @@ def random_tip():
         driver.get("https://noise.cash/explore")
 
     try:
-        time.sleep(10)
-        driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div/div[1]"
+        wait.until(
+            ec.presence_of_element_located(
+                (
+                    By.XPATH,
+                    "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div/div[1]",
+                )
+            )
         ).click()
-        time.sleep(2)
-        driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[1]/button"
+        wait.until(
+            ec.presence_of_element_located(
+                (
+                    By.XPATH,
+                    "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[1]/button",
+                )
+            )
         ).click()
-        time.sleep(2)
+
         try:
             for i in range(0, 100):
                 driver.find_element_by_xpath(
                     "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[5]/input"
                 ).send_keys(Keys.ARROW_RIGHT)
-            time.sleep(2)
-
         except:
             pass
 
-        driver.find_element_by_xpath(
-            "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]"
+        wait.until(
+            ec.presence_of_element_located(
+                (
+                    By.XPATH,
+                    "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]",
+                )
+            )
         ).click()
-        time.sleep(2)
         try:
-            driver.find_element_by_xpath(
-                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button"
+            wait.unti(
+                ec.presence_of_element_located(
+                    (
+                        By.XPATH,
+                        "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button",
+                    )
+                )
             ).click()
         except:
-            driver.find_element_by_xpath(
-                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[4]/div[2]/div/button"
+            wait.until(
+                ec.presence_of_element_located(
+                    (
+                        By.XPATH,
+                        "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[4]/div[2]/div/button",
+                    )
+                )
             ).click()
 
     except Exception as e:
@@ -212,6 +262,7 @@ if __name__ == "__main__":
         f.close()
 
     driver = webdriver.Chrome(chrome_options=get_opts())
+    wait = WebDriverWait(driver,10)
     while True:
         for user in users:
             try:
