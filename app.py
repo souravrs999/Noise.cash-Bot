@@ -9,38 +9,19 @@ import json
 
 def get_opts():
     opts = webdriver.ChromeOptions()
+    prefs = {"profile.managed_default_content_settings.images": 2}
 
     opts.add_argument("--headless")
     opts.add_argument("--disable-infobars")
-    opts.add_argument("window-size=1920,1080")
+    # opts.add_argument("window-size=1600,900")
     opts.add_argument("start-maximized")
     opts.add_argument("--disable-dev-shm-usage")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-gpu")
-    opts.add_argument("--dns-prefetch-disable")
+    opts.add_experimental_option("prefs", prefs)
     opts.add_argument("--log-level-3")
     opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     return opts
-
-
-def proxy():
-
-    with open("http_proxies.txt", "r") as f:
-        proxy = random.choice([x.split("\n")[0] for x in f.readlines()])
-
-    cap = webdriver.common.desired_capabilities.DesiredCapabilities.CHROME.copy()
-    cap["goog:loggingPrefs"] = {"perfomance": "ALL"}
-    cap["proxy"] = {
-        "httpProxy": proxy,
-        "ftpProxy": proxy,
-        "sslProxy": proxy,
-        "noProxy": None,
-        "proxyType": "MANUAL",
-        "class": "org.openqa.selenium.Proxy",
-        "autodetect": False,
-    }
-    return cap
-
 
 def bch_wallet():
 
@@ -64,6 +45,7 @@ def login(mail):
 
     if driver.current_url != "https://noise.cash/login":
         driver.delete_all_cookies()
+        driver.refresh()
         driver.get("https://noise.cash/login")
 
     try:
@@ -229,29 +211,24 @@ if __name__ == "__main__":
         users = f.readlines()
         f.close()
 
+    driver = webdriver.Chrome(chrome_options=get_opts())
     while True:
         for user in users:
-            driver = webdriver.Chrome(chrome_options=get_opts())
             try:
                 user = user.split("\n")[0].split(",")
                 print(f"User: [{user_count}] {user[0]}")
-
                 login(user[1])
                 time.sleep(5)
-
                 issue_handler()
                 post()
-
                 random_tip()
                 change_wallet()
-
                 logout()
                 user_count += 1
-
-                driver.close()
-
+                # driver.close()
             except Exception as e:
                 print(e)
-                driver.close()
+                pass
+                # driver.close()
 
     driver.close()
