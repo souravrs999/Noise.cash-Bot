@@ -261,10 +261,10 @@ if __name__ == "__main__":
         users = f.readlines()
         f.close()
 
-    driver = webdriver.Chrome(chrome_options=get_opts())
-    wait = WebDriverWait(driver,10)
     while True:
         for user in users:
+            driver = webdriver.Chrome(chrome_options=get_opts())
+            wait = WebDriverWait(driver,10)
             try:
                 user = user.split("\n")[0].split(",")
                 print(f"User: [{user_count}] {user[0]}")
@@ -276,10 +276,9 @@ if __name__ == "__main__":
                 change_wallet()
                 logout()
                 user_count += 1
-                # driver.close()
+                driver.close()
             except Exception as e:
                 print(e)
-                pass
-                # driver.close()
+                driver.close()
 
     driver.close()
