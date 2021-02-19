@@ -69,7 +69,7 @@ class NoiseCash:
         opts = webdriver.ChromeOptions()
 
         # Basic chrome flags
-        # opts.add_argument("--headless")
+        opts.add_argument("--headless")
         opts.add_argument("--incognito")
         opts.add_argument("no-first-run")
         opts.add_argument("--no-sandbox")
