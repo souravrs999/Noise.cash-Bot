@@ -21,7 +21,7 @@ def get_opts():
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-gpu")
     opts.add_argument("--log-level-3")
-    opts.binary_location = os.getenv("FIREFOX_BIN")
+    opts.binary_location = os.environ.get("FIREFOX_BIN")
     return opts
 
 
@@ -251,6 +251,7 @@ def random_tip():
     except Exception as e:
         pass
 
+
 # Comment for the sake
 if __name__ == "__main__":
 
@@ -262,7 +263,8 @@ if __name__ == "__main__":
     while True:
         for user in users:
             driver = webdriver.Firefox(
-                executable_path=os.getenv("GECKODRIVER_PATH"), options=get_opts()
+                executable_path=str(os.environ.get("GECKODRIVER_PATH")),
+                options=get_opts(),
             )
             wait = WebDriverWait(driver, 10)
             try:
