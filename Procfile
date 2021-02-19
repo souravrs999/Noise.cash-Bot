@@ -1,1 +1,1 @@
-worker: python chrome.py
+worker: python app.py
