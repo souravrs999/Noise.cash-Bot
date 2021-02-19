@@ -21,6 +21,7 @@ def get_opts():
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-gpu")
     opts.add_argument("--log-level-3")
+    opts.binary_location = os.getenv("FIREFOX_BIN")
     return opts
 
 
@@ -260,8 +261,10 @@ if __name__ == "__main__":
 
     while True:
         for user in users:
-            driver = webdriver.Firefox(options=get_opts())
-            wait = WebDriverWait(driver,10)
+            driver = webdriver.Firefox(
+                executable_path=os.getenv("GECKODRIVER_PATH"), options=get_opts()
+            )
+            wait = WebDriverWait(driver, 10)
             try:
                 user = user.split("\n")[0].split(",")
                 print(f"User: [{user_count}] {user[0]}")
