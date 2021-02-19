@@ -1,1 +1,1 @@
-worker: python firefox.py
+worker: python chrome.py
