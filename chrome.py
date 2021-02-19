@@ -23,7 +23,7 @@ def get_opts():
     opts.add_argument("--disable-gpu")
     opts.add_experimental_option("prefs", prefs)
     opts.add_argument("--log-level-3")
-    opts.binary_location = "GOOGLE_CHROME_BIN"
+    opts.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
     return opts
 
 
