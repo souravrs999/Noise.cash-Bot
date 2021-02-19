@@ -12,7 +12,6 @@ import json
 
 def get_opts():
     opts = webdriver.firefox.options.Options()
-    prefs = {"profile.managed_default_content_settings.images": 2}
 
     opts.add_argument("--headless")
     opts.add_argument("--disable-infobars")
@@ -23,7 +22,6 @@ def get_opts():
     opts.add_argument("--disable-gpu")
     opts.add_experimental_option("prefs", prefs)
     opts.add_argument("--log-level-3")
-    # opts.binary_location = "/app/.apt/usr/bin/google-chrome-stable"
     return opts
 
 
