@@ -40,6 +40,26 @@ class NoiseCash:
             "https://noise.cash/n/funny",
             "https://noise.cash/n/funnyposts",
             "https://noise.cash/n/nfunny",
+            "https://noise.cash/n/malayalam",
+            "https://noise.cash/n/makesomenoise",
+            "https://noise.cash/n/freecrypto",
+            "https://noise.cash/n/indiancryptophiles",
+            "https://noise.cash/n/india",
+            "https://noise.cash/n/telugupeople",
+            "https://noise.cash/n/hindicomedy",
+            "https://noise.cash/n/new",
+            "https://noise.cash/n/kerala",
+            "https://noise.cash/n/noiseworld",
+            "https://noise.cash/n/freetipsgiveaway",
+            "https://noise.cash/n/giveawayss",
+            "https://noise.cash/n/purefreetipsgiveawayonlyautoblock",
+            "https://noise.cash/n/giveawaysn",
+            "https://noise.cash/n/giveawaysonly",
+            "https://noise.cash/n/noisegiveaway",
+            "https://noise.cash/n/realgiveaways",
+            "https://noise.cash/n/httpsnoisecashngiveaways",
+            "https://noise.cash/n/cashgiveaway",
+            "https://noise.cash/n/bchgiveaway",
         ]
         self.quoteCU = [
             "https://noise.cash/n/patamaquotes",
@@ -56,6 +76,22 @@ class NoiseCash:
             "https://noise.cash/n/motivationquotes",
             "https://noise.cash/n/everythingquotes",
             "https://noise.cash/n/funnyqoutes",
+            "https://noise.cash/n/inspirationalqouteslongdistancere",
+            "https://noise.cash/n/inspirationalquotesforall",
+            "https://noise.cash/n/motivazioneinspiration",
+            "https://noise.cash/n/donglucinspiration",
+            "https://noise.cash/n/motivasiyainspiration",
+            "https://noise.cash/n/inspirationalqoutes",
+            "https://noise.cash/n/inspiration",
+            "https://noise.cash/n/luncheaamuinspiration",
+            "https://noise.cash/n/inspirationalmessages",
+            "https://noise.cash/n/inspirational",
+            "https://noise.cash/n/inspirationalgoal",
+            "https://noise.cash/n/positiveinspirationalqoutes",
+            "https://noise.cash/n/motivatieinspiration",
+            "https://noise.cash/n/inspiration4all",
+            "https://noise.cash/n/inspirationalspeaker",
+            "https://noise.cash/n/motivationinspirationlove",
         ]
         self.wallet_url = "https://noise.cash/settings/wallet"
         self.driver = webdriver.Chrome(
@@ -69,7 +105,7 @@ class NoiseCash:
         opts = webdriver.ChromeOptions()
 
         # Basic chrome flags
-        opts.add_argument("--headless")
+        # opts.add_argument("--headless")
         opts.add_argument("--incognito")
         opts.add_argument("no-first-run")
         opts.add_argument("--no-sandbox")
@@ -198,9 +234,9 @@ class NoiseCash:
             ).click()
             txt_area = self.driver.find_element_by_xpath(
                 "/html/body/div/div/main/div/div/div[2]/div/div/textarea"
-            ).send_keys(random_joke)
+            )
             txt_area.send_keys(random_joke)
-            print(f"-- Text {random_quote}")
+            print(f"-- Text {random_joke}")
 
             try:
                 self.__getXEC(
@@ -211,7 +247,7 @@ class NoiseCash:
                     "/html/body/div/div/main/div/div/div[2]/div/div/div[1]/div[2]/button"
                 ).click()
         except Exception as e:
-            # print(f"--- Error {e}")
+            print(f"--- Error {e}")
             pass
 
     def PostQuotes(self):
@@ -226,7 +262,8 @@ class NoiseCash:
             ).click()
             txt_area = self.driver.find_element_by_xpath(
                 "/html/body/div/div/main/div/div/div[2]/div/div/textarea"
-            ).send_keys(random_quote)
+            )
+            txt_area.send_keys(random_quote)
             print(f"-- Text {random_quote}")
 
             try:
@@ -243,7 +280,7 @@ class NoiseCash:
 
     def changeWallet(self):
 
-        rec = np.random.choice([True, False], p=[0.2, 0.8])
+        rec = np.random.choice([True, False], p=[0.3, 0.7])
         if bool(rec):
             if self.driver.current_url != self.wallet_url:
                 self.driver.get(self.wallet_url)
@@ -264,24 +301,25 @@ class NoiseCash:
         self.driver.get(random.choice(randomChamber))
         try:
             self.__getXEP(
-                "/html/body/div/div/main/div/div/div[3]/div/div[1]/div/div[2]/div[2]/div[3]/div[3]/div[5]"
-            ).click()
-            self.__getXEC(
-                "/html/body/div/div/main/div/div/div[3]/div/div[1]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[1]/button"
+                "/html/body/div/div/main/div/div/div[3]/div/div[3]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div/div[1]"
             ).click()
             try:
-                for i in range(0, 100):
+                self.__getXEP(
+                    "/html/body/div/div/main/div/div/div[3]/div/div[3]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div[2]/div[1]/button"
+                ).click()
+            except Exception:
+                for i in range(0, 50):
                     driver.find_element_by_xpath(
-                        "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[5]/input"
+                        "/html/body/div/div/main/div/div/div[3]/div/div[3]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div[2]/div[2]/div/div/div/div[5]/input"
                     ).send_keys(Keys.ARROW_RIGHT)
             except:
                 pass
             self.__getXEP(
-                "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]"
+                "/html/body/div/div/main/div/div/div[3]/div/div[3]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div[2]/div[2]/div/div/div/div[2]/div/div[2]/div[5]"
             ).click()
             try:
                 self.__getXEC(
-                    "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button"
+                    "/html/body/div/div/main/div/div/div[3]/div/div[3]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div[2]/div[2]/div/div/div/div[6]/div[2]/div/button"
                 ).click()
             except:
                 self.__getXEC(
@@ -301,8 +339,13 @@ if __name__ == "__main__":
             try:
                 bot = NoiseCash(user[0], user[1], "hadron*5000")
                 bot.Login()
-                random.choice([bot.PostJokes(), bot.PostQuotes()])
-                # bot.randomTip()
+                topic = random.choice(["joke", "quote"])
+                print(f"--- Topic {topic}")
+                if topic == "joke":
+                    bot.PostJokes()
+                elif topic == "quote":
+                    bot.PostQuotes()
+                bot.randomTip()
                 bot.changeWallet()
                 bot.Logout()
                 bot.Close()
