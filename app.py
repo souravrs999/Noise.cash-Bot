@@ -333,15 +333,15 @@ if __name__ == "__main__":
             try:
                 bot = NoiseCash(user[0], user[1], "hadron*5000")
                 bot.Login()
-                # topic = random.choice(["joke", "quote"])
-                # print(f"--- Topic {topic}")
-                # if topic == "joke":
-                #     bot.PostJokes()
-                # elif topic == "quote":
-                #     bot.PostQuotes()
-                # bot.randomTip()
-                # bot.changeWallet()
-                # bot.Logout()
+                topic = random.choice(["joke", "quote"])
+                print(f"--- Topic {topic}")
+                if topic == "joke":
+                    bot.PostJokes()
+                elif topic == "quote":
+                    bot.PostQuotes()
+                bot.randomTip()
+                bot.changeWallet()
+                bot.Logout()
                 bot.Close()
             except Exception as e:
                 print(f"--- Error {e}")
