@@ -2,6 +2,7 @@
 import time
 import os
 import json
+import pickle
 import numpy as np
 import random
 
@@ -137,14 +138,30 @@ class NoiseCash:
             self.driver.refresh()
             self.driver.get(self.login_url)
 
-        print(f"--- User {self.user}")
-        print("--- Inputting mail and password")
-        email_field = self.__getXEP('//*[@id="email"]').send_keys(self.mail)
-        pswd_field = self.__getXEP('//*[@id="password"]').send_keys(self.pswd)
-        print("--- Clicking on Login btn")
-        login_btn = self.__getXEC(
-            "/html/body/div/div/div[2]/form/div[4]/button"
-        ).click()
+        try:
+            with open(self.mail, "rb") as f:
+                cookies = pickle.load(f)
+                for cookie in cookies:
+                    self.driver.add_cookie(cookie)
+            self.driver.refresh()
+            print("--- Loaded cookies.")
+
+        except Exception as e:
+            print(e)
+            print(f"--- User {self.user}")
+            print("--- Inputting mail and password")
+            email_field = self.__getXEP('//*[@id="email"]').send_keys(self.mail)
+            pswd_field = self.__getXEP('//*[@id="password"]').send_keys(self.pswd)
+            remember = self.__getXEP('//*[@id="remember_me"]').click()
+            print("--- Clicking on Login btn")
+            login_btn = self.__getXEC(
+                "/html/body/div/div/div[2]/form/div[4]/button"
+            ).click()
+            time.sleep(3)
+            if not os.path.exists(self.mail):
+                with open(self.mail, "wb") as f:
+                    pickle.dump(self.driver.get_cookies(), f)
+                    print("--- Writing cookies.")
 
     def Logout(self):
 
@@ -316,15 +333,15 @@ if __name__ == "__main__":
             try:
                 bot = NoiseCash(user[0], user[1], "hadron*5000")
                 bot.Login()
-                topic = random.choice(["joke", "quote"])
-                print(f"--- Topic {topic}")
-                if topic == "joke":
-                    bot.PostJokes()
-                elif topic == "quote":
-                    bot.PostQuotes()
-                bot.randomTip()
-                bot.changeWallet()
-                bot.Logout()
+                # topic = random.choice(["joke", "quote"])
+                # print(f"--- Topic {topic}")
+                # if topic == "joke":
+                #     bot.PostJokes()
+                # elif topic == "quote":
+                #     bot.PostQuotes()
+                # bot.randomTip()
+                # bot.changeWallet()
+                # bot.Logout()
                 bot.Close()
             except Exception as e:
                 print(f"--- Error {e}")
