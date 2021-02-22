@@ -23,76 +23,8 @@ class NoiseCash:
         self.mail = mail
         self.pswd = pswd
         self.login_url = "https://noise.cash/login"
-        self.jokeCU = [
-            "https://noise.cash/n/dadjokes",
-            "https://noise.cash/n/jokes",
-            "https://noise.cash/n/njokesriddles",
-            "https://noise.cash/n/funnyjokes",
-            "https://noise.cash/n/bisayajokes",
-            "https://noise.cash/n/njokespinoy",
-            "https://noise.cash/n/punjabijokes",
-            "https://noise.cash/n/crazyjokes",
-            "https://noise.cash/n/tagalogjokes",
-            "https://noise.cash/n/npinoyjokes",
-            "https://noise.cash/n/jokesinurdu",
-            "https://noise.cash/n/ishanjokesandmemes",
-            "https://noise.cash/n/funnyjokes",
-            "https://noise.cash/n/funny",
-            "https://noise.cash/n/funnyposts",
-            "https://noise.cash/n/nfunny",
-            "https://noise.cash/n/malayalam",
-            "https://noise.cash/n/makesomenoise",
-            "https://noise.cash/n/freecrypto",
-            "https://noise.cash/n/indiancryptophiles",
-            "https://noise.cash/n/india",
-            "https://noise.cash/n/telugupeople",
-            "https://noise.cash/n/hindicomedy",
-            "https://noise.cash/n/new",
-            "https://noise.cash/n/kerala",
-            "https://noise.cash/n/noiseworld",
-            "https://noise.cash/n/freetipsgiveaway",
-            "https://noise.cash/n/giveawayss",
-            "https://noise.cash/n/purefreetipsgiveawayonlyautoblock",
-            "https://noise.cash/n/giveawaysn",
-            "https://noise.cash/n/giveawaysonly",
-            "https://noise.cash/n/noisegiveaway",
-            "https://noise.cash/n/realgiveaways",
-            "https://noise.cash/n/httpsnoisecashngiveaways",
-            "https://noise.cash/n/cashgiveaway",
-            "https://noise.cash/n/bchgiveaway",
-        ]
-        self.quoteCU = [
-            "https://noise.cash/n/patamaquotes",
-            "https://noise.cash/n/ndailyquotes",
-            "https://noise.cash/n/versequotes",
-            "https://noise.cash/n/teaquotes",
-            "https://noise.cash/n/quotesforyou",
-            "https://noise.cash/n/motivationalquotess",
-            "https://noise.cash/n/lifequotes",
-            "https://noise.cash/n/latestmotivationalquotes",
-            "https://noise.cash/n/quotesoftheday",
-            "https://noise.cash/n/philosophyquotes",
-            "https://noise.cash/n/motivationquotes",
-            "https://noise.cash/n/everythingquotes",
-            "https://noise.cash/n/funnyqoutes",
-            "https://noise.cash/n/inspirationalqouteslongdistancere",
-            "https://noise.cash/n/inspirationalquotesforall",
-            "https://noise.cash/n/motivazioneinspiration",
-            "https://noise.cash/n/donglucinspiration",
-            "https://noise.cash/n/motivasiyainspiration",
-            "https://noise.cash/n/inspirationalqoutes",
-            "https://noise.cash/n/inspiration",
-            "https://noise.cash/n/luncheaamuinspiration",
-            "https://noise.cash/n/inspirationalmessages",
-            "https://noise.cash/n/inspirational",
-            "https://noise.cash/n/inspirationalgoal",
-            "https://noise.cash/n/positiveinspirationalqoutes",
-            "https://noise.cash/n/motivatieinspiration",
-            "https://noise.cash/n/inspiration4all",
-            "https://noise.cash/n/inspirationalspeaker",
-            "https://noise.cash/n/motivationinspirationlove",
-        ]
         self.wallet_url = "https://noise.cash/settings/wallet"
+        self.chamber_url = "https://noise.cash/n/jokesquotes"
         self.driver = webdriver.Chrome(
             executable_path=str(os.environ.get("CHROMEDRIVER_PATH")),
             options=self._getOpts(),
@@ -189,13 +121,16 @@ class NoiseCash:
 
     def Logout(self):
 
-        avatar = self.__getXEP(
-            "/html/body/div/div/nav/div/div/div[3]/div[2]/div/div[1]/button/div[1]"
-        ).click()
-        logout = self.__getXEP(
-            "/html/body/div/div/nav/div/div/div[3]/div[2]/div[2]/div[2]/div/div/form/a"
-        ).click()
-        print("--- Logged out")
+        try:
+            avatar = self.__getXEP(
+                "/html/body/div/div/nav/div/div/div[3]/div[2]/div/div[1]/button/div[1]"
+            ).click()
+            logout = self.__getXEP(
+                "/html/body/div/div/nav/div/div/div[3]/div[2]/div[2]/div[2]/div/div/form/a"
+            ).click()
+            print("--- Logged out")
+        except:
+            pass
 
     def _modalHandler(self):
 
@@ -229,8 +164,8 @@ class NoiseCash:
 
     def PostJokes(self):
 
-        if self.driver.current_url not in self.jokeCU:
-            self.driver.get(random.choice(self.jokeCU))
+        if self.driver.current_url != self.chamber_url:
+            self.driver.get(self.chamber_url)
         try:
             random_joke = self.getRandJoke()
             txt_area = self.__getXEC(
@@ -256,8 +191,8 @@ class NoiseCash:
 
     def PostQuotes(self):
 
-        if self.driver.current_url not in self.quoteCU:
-            self.driver.get(random.choice(self.quoteCU))
+        if self.driver.current_url != self.chamber_url:
+            self.driver.get(self.chamber_url)
 
         try:
             random_quote = self.getRandQuote()
@@ -284,11 +219,21 @@ class NoiseCash:
 
     def changeWallet(self):
 
-        rec = np.random.choice([True, False], p=[0.3, 0.7])
-        if bool(rec):
-            if self.driver.current_url != self.wallet_url:
-                self.driver.get(self.wallet_url)
+        if self.driver.current_url != self.wallet_url:
+            self.driver.get(self.wallet_url)
 
+        rec = np.random.choice([True, False], p=[0.3, 0.7])
+        curr_addr = self.__getXEP('//*[@id="cashaddr"]')
+        curr_addr_val = curr_addr.get_attribute("value")
+
+        if "bitcoincash" not in curr_addr_val:
+            curr_addr.send_keys(self.Wallet())
+            self.__getXEC(
+                "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button"
+            ).click()
+            print("--- Changed wallet address")
+
+        elif bool(rec):
             curr_addr = self.__getXEP('//*[@id="cashaddr"]')
             curr_addr.send_keys(Keys.CONTROL + "a")
             curr_addr.send_keys(Keys.DELETE)
@@ -301,8 +246,9 @@ class NoiseCash:
 
     def randomTip(self):
 
-        randomChamber = random.choice([self.jokeCU, self.quoteCU])
-        self.driver.get(random.choice(randomChamber))
+        if self.driver.current_url != self.chamber_url:
+            self.driver.get(self.chamber_url)
+
         try:
             self.__getXEP(
                 "/html/body/div/div/main/div/div/div[3]/div/div[3]/div/div[2]/div[2]/div[3]/div[3]/div[5]/div/div/div[1]"
