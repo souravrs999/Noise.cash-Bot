@@ -147,7 +147,6 @@ class NoiseCash:
             print("--- Loaded cookies.")
 
         except Exception as e:
-            print(e)
             print(f"--- User {self.user}")
             print("--- Inputting mail and password")
             email_field = self.__getXEP('//*[@id="email"]').send_keys(self.mail)
