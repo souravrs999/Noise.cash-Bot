@@ -24,7 +24,34 @@ class NoiseCash:
         self.pswd = pswd
         self.login_url = "https://noise.cash/login"
         self.wallet_url = "https://noise.cash/settings/wallet"
-        self.chamber_url = "https://noise.cash/n/jokesquotes"
+        self.chamber_url = [
+            "https://noise.cash/n/jokesquotes",
+            "https://noise.cash/n/funquotes",
+            "https://noise.cash/n/cleanjokes",
+            "https://noise.cash/n/quickjokes",
+            "https://noise.cash/n/quickthoughts",
+            "https://noise.cash/n/giggle",
+            "https://noise.cash/n/laughoutloud",
+            "https://noise.cash/n/bright",
+            "https://noise.cash/n/stupidquotes",
+            "https://noise.cash/n/badjokes",
+            "https://noise.cash/n/mindchurn",
+            "https://noise.cash/n/kevinsthoughts",
+            "https://noise.cash/n/timepass",
+            "https://noise.cash/n/quicktips",
+            "https://noise.cash/n/noiselife",
+            "https://noise.cash/n/laughmate",
+            "https://noise.cash/n/sog",
+            "https://noise.cash/n/dumbquotes",
+            "https://noise.cash/n/yipeeyay",
+            "https://noise.cash/n/mindbend",
+            "https://noise.cash/n/idontgetit",
+            "https://noise.cash/n/ttv",
+            "https://noise.cash/n/inception",
+            "https://noise.cash/n/hahaha",
+            "https://noise.cash/n/wordlove",
+            "https://noise.cash/n/wordmemes",
+        ]
         self.driver = webdriver.Chrome(
             executable_path=str(os.environ.get("CHROMEDRIVER_PATH")),
             options=self._getOpts(),
@@ -164,8 +191,8 @@ class NoiseCash:
 
     def PostJokes(self):
 
-        if self.driver.current_url != self.chamber_url:
-            self.driver.get(self.chamber_url)
+        if self.driver.current_url not in self.chamber_url:
+            self.driver.get(rando.choice(self.chamber_url))
         try:
             random_joke = self.getRandJoke()
             txt_area = self.__getXEC(
@@ -191,8 +218,8 @@ class NoiseCash:
 
     def PostQuotes(self):
 
-        if self.driver.current_url != self.chamber_url:
-            self.driver.get(self.chamber_url)
+        if self.driver.current_url not in self.chamber_url:
+            self.driver.get(random.choice(self.chamber_url))
 
         try:
             random_quote = self.getRandQuote()
@@ -246,8 +273,8 @@ class NoiseCash:
 
     def randomTip(self):
 
-        if self.driver.current_url != self.chamber_url:
-            self.driver.get(self.chamber_url)
+        if self.driver.current_url not in self.chamber_url:
+            self.driver.get(os.random(self.chamber_url))
 
         try:
             self.__getXEP(
