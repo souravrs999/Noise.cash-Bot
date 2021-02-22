@@ -66,7 +66,6 @@ class NoiseCash:
             "https://noise.cash/n/ndailyquotes",
             "https://noise.cash/n/versequotes",
             "https://noise.cash/n/teaquotes",
-            "https://noise.cash/n/quotesthatmakeyougohmmmm",
             "https://noise.cash/n/quotesforyou",
             "https://noise.cash/n/motivationalquotess",
             "https://noise.cash/n/lifequotes",
@@ -98,6 +97,9 @@ class NoiseCash:
             executable_path=str(os.environ.get("CHROMEDRIVER_PATH")),
             options=self._getOpts(),
         )
+        self.driver.execute_script(
+            "Object.defineProperty(navigator, 'webdriver', {get: () => undefined})"
+        )
         self.wait = WebDriverWait(self.driver, 10)
 
     def _getOpts(self):
@@ -125,6 +127,8 @@ class NoiseCash:
         opts.add_argument("--ignore-certificate-errors")
         opts.add_argument("--allow-running-insecure-content")
         opts.add_argument(f"--user-agent={UserAgent().random}")
+        opts.add_argument("--disable-blink-features")
+        opts.add_argument("--disable-blink-features=AutomationControlled")
         opts.add_argument("enable-experimental-web-platform-features")
 
         # Experimental features
