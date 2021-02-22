@@ -192,7 +192,7 @@ class NoiseCash:
     def PostJokes(self):
 
         if self.driver.current_url not in self.chamber_url:
-            self.driver.get(rando.choice(self.chamber_url))
+            self.driver.get(random.choice(self.chamber_url))
         try:
             random_joke = self.getRandJoke()
             txt_area = self.__getXEC(
@@ -311,21 +311,20 @@ if __name__ == "__main__":
     with open("users.txt", "r") as f:
         users = f.readlines()
     while True:
-        for user in users:
-            user = user.split("\n")[0].split(",")
-            try:
-                bot = NoiseCash(user[0], user[1], "hadron*5000")
-                bot.Login()
-                topic = random.choice(["joke", "quote"])
-                print(f"--- Topic {topic}")
-                if topic == "joke":
-                    bot.PostJokes()
-                elif topic == "quote":
-                    bot.PostQuotes()
-                bot.randomTip()
-                bot.changeWallet()
-                bot.Logout()
-                bot.Close()
-            except Exception as e:
-                print(f"--- Error {e}")
-                bot.Close()
+        user = random.choice([user.split("\n")[0].split(",") for user in users])
+        try:
+            bot = NoiseCash(user[0], user[1], "hadron*5000")
+            bot.Login()
+            topic = random.choice(["joke", "quote"])
+            print(f"--- Topic {topic}")
+            if topic == "joke":
+                bot.PostJokes()
+            elif topic == "quote":
+                bot.PostQuotes()
+            bot.randomTip()
+            bot.changeWallet()
+            bot.Logout()
+            bot.Close()
+        except Exception as e:
+            print(f"--- Error {e}")
+            bot.Close()
