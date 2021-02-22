@@ -144,7 +144,7 @@ class NoiseCash:
                 for cookie in cookies:
                     self.driver.add_cookie(cookie)
             self.driver.refresh()
-            print("--- Loaded cookies.")
+            print(f"--- Loaded {self.mail} cookies.")
 
         except Exception as e:
             print(f"--- User {self.user}")
