@@ -138,29 +138,15 @@ class NoiseCash:
             self.driver.refresh()
             self.driver.get(self.login_url)
 
-        try:
-            with open(self.mail, "rb") as f:
-                cookies = pickle.load(f)
-                for cookie in cookies:
-                    self.driver.add_cookie(cookie)
-            self.driver.refresh()
-            print(f"--- Loaded {self.mail} cookies.")
-
-        except Exception as e:
             print(f"--- User {self.user}")
             print("--- Inputting mail and password")
             email_field = self.__getXEP('//*[@id="email"]').send_keys(self.mail)
             pswd_field = self.__getXEP('//*[@id="password"]').send_keys(self.pswd)
-            remember = self.__getXEP('//*[@id="remember_me"]').click()
+            # remember = self.__getXEP('//*[@id="remember_me"]').click()
             print("--- Clicking on Login btn")
             login_btn = self.__getXEC(
                 "/html/body/div/div/div[2]/form/div[4]/button"
             ).click()
-            time.sleep(3)
-            if not os.path.exists(self.mail):
-                with open(self.mail, "wb") as f:
-                    pickle.dump(self.driver.get_cookies(), f)
-                    print("--- Writing cookies.")
 
     def Logout(self):
 
