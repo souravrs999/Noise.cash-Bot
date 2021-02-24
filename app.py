@@ -243,7 +243,7 @@ class NoiseCash:
                     "/html/body/div/div/main/div/div/div[2]/div/div/div[1]/div[2]/button"
                 ).click()
         except Exception as e:
-            # print(f"--- Error {e}")
+            print(f"--- Error {e}")
             pass
 
     def changeWallet(self):
@@ -305,6 +305,7 @@ class NoiseCash:
                     "/html/body/div/div/main/div/div/div[2]/div/div[1]/div/div[2]/div[2]/div[3]/div[2]/div[5]/div/div[2]/div[2]/div/div/div/div[4]/div[2]/div/button"
                 ).click()
         except Exception as e:
+            print(f"--- Error: {e}")
             pass
 
 
