@@ -327,7 +327,6 @@ if __name__ == "__main__":
                 bot.randomTip()
                 bot.changeWallet()
                 bot.Logout()
-                time.sleep(30)
             except Exception as e:
                 print(f"--- Error {e}")
                 bot.Close()
