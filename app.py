@@ -52,6 +52,14 @@ class NoiseCash:
             "https://noise.cash/n/hahaha",
             "https://noise.cash/n/wordlove",
             "https://noise.cash/n/wordmemes",
+            "https://noise.cash/n/koolaid",
+            "https://noise.cash/n/smallpp",
+            "https://noise.cash/n/bigpppeople",
+            "https://noise.cash/n/bigbangtheory",
+            "https://noise.cash/n/jimbrootan",
+            "https://noise.cash/n/manoharam",
+            "https://noise.cash/n/vadakkanselfie",
+            "https://noise.cash/n/mathilukal",
         ]
         self.driver = webdriver.Chrome(
             executable_path=str(os.environ.get("CHROMEDRIVER_PATH")),
@@ -328,6 +336,7 @@ if __name__ == "__main__":
                 bot.randomTip()
                 bot.changeWallet()
                 bot.Logout()
+                bot.Close()
             except Exception as e:
                 print(f"--- Error {e}")
                 bot.Close()
