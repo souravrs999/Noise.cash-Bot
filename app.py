@@ -199,10 +199,17 @@ class NoiseCash:
             quotes = f.read().split("\n.\n")
         return random.choice(quotes)
 
+    def likeShit(self):
+        print("--- Liking stuff")
+        for x in range(1,20):
+            likeBtnsXpaths = f'//*[@id="app"]/div/main/div/div/div[4]/div/div[{x}]/div/div[2]/div[2]/div[3]/div[8]/button'
+            likeBtn = self.__getXEC(likeBtnsXpaths).click()
+
     def PostJokes(self):
 
         if self.driver.current_url not in self.chamber_url:
             self.driver.get(random.choice(self.chamber_url))
+        self.likeShit()
         try:
             random_joke = self.getRandJoke()
             txt_area = self.__getXEC(
@@ -230,7 +237,7 @@ class NoiseCash:
 
         if self.driver.current_url not in self.chamber_url:
             self.driver.get(random.choice(self.chamber_url))
-
+        self.likeShit()
         try:
             random_quote = self.getRandQuote()
             txt_area = self.__getXEC(
@@ -333,7 +340,7 @@ if __name__ == "__main__":
                     bot.PostJokes()
                 elif topic == "quote":
                     bot.PostQuotes()
-                bot.randomTip()
+                # bot.randomTip()
                 bot.changeWallet()
                 bot.Logout()
                 bot.Close()
