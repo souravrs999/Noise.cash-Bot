@@ -182,33 +182,27 @@ class NoiseCash:
     # Get some random joke to post
     def getRandJoke(self):
 
-        with open("jokes.json", "r") as f:
-            jokes = [i["body"] for i in json.load(f)]
-        with open("jokes.txt", "r") as f:
-            clean_jokes = f.read().split("\n.\n")
-        random_text = np.random.choice(
-            [random.choice(jokes), random.choice(clean_jokes)],
-            p=[0.5, 0.5],
-        )
-        return random_text
+        jokes = json.load(open("reddit_jokes.json"))
+        randomJoke = np.random.choice(jokes)
+        return randomJoke["title"] + randomJoke["body"]
 
     # Get some random quote to post
     def getRandQuote(self):
 
-        with open("quotes.txt", "r") as f:
-            quotes = f.read().split("\n.\n")
-        return random.choice(quotes)
+        quotes = json.load(open("quotes.json"))
+        randomQuote = np.random.choice(quotes)
+        return randomQuote["Quote"] + randomQuote["Author"]
 
     def likeShit(self):
         print("--- Liking stuff")
-        for x in range(1,31):
+        for x in range(1, 31):
             likeBtnsXpaths = f'//*[@id="app"]/div/main/div/div/div[4]/div/div[{x}]/div/div[2]/div[2]/div[3]/div[8]/button'
             likeBtn = self.__getXEC(likeBtnsXpaths).click()
 
     def PostJokes(self):
 
         if self.driver.current_url not in self.chamber_url:
-            self.driver.get(random.choice(self.chamber_url))
+            self.driver.get(np.random.choice(self.chamber_url))
         self.likeShit()
         try:
             random_joke = self.getRandJoke()
