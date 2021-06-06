@@ -105,6 +105,7 @@ class NoiseCash:
         opts.add_experimental_option("excludeSwitches", ["disable-popup-blocking"])
         opts.add_experimental_option("excludeSwitches", ["enable-automation"])
         opts.add_experimental_option("useAutomationExtension", False)
+        opts.set_capability("unhandledPromptBehavior", "accept")
 
         # Chrome binary
         opts.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
@@ -218,18 +219,19 @@ class NoiseCash:
             )
             txt_area.send_keys(random_joke)
             print(f"-- Text {random_joke}")
-            time.sleep(3)
 
             try:
                 self.__getXEC(
                     "/html/body/div/div/main/div/div/div[2]/div/div/div[1]/div[3]/button"
                 ).click()
+                print("--- Posted succesfully")
             except:
                 self.__getXEC(
                     "/html/body/div/div/main/div/div/div[2]/div/div/div[1]/div[2]/button"
                 ).click()
+                print("--- Posted succesfully")
         except Exception as e:
-            print(f"--- Error {e}")
+            print(f"--- Error Could not post")
             pass
 
     def PostQuotes(self):
@@ -251,18 +253,19 @@ class NoiseCash:
             )
             txt_area.send_keys(random_quote)
             print(f"-- Text {random_quote}")
-            time.sleep(3)
 
             try:
                 self.__getXEC(
                     "/html/body/div/div/main/div/div/div[2]/div/div/div[1]/div[3]/button"
                 ).click()
+                print("--- Posted succesfully")
             except:
                 self.__getXEC(
                     "/html/body/div/div/main/div/div/div[2]/div/div/div[1]/div[2]/button"
                 ).click()
+                print("--- Posted succesfully")
         except Exception as e:
-            print(f"--- Error {e}")
+            print(f"--- Error could not post")
             pass
 
     def changeWallet(self):
