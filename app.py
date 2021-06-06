@@ -218,6 +218,7 @@ class NoiseCash:
             )
             txt_area.send_keys(random_joke)
             print(f"-- Text {random_joke}")
+            time.sleep(3)
 
             try:
                 self.__getXEC(
@@ -250,6 +251,7 @@ class NoiseCash:
             )
             txt_area.send_keys(random_quote)
             print(f"-- Text {random_quote}")
+            time.sleep(3)
 
             try:
                 self.__getXEC(
@@ -285,6 +287,7 @@ class NoiseCash:
             curr_addr.send_keys(Keys.DELETE)
 
             curr_addr.send_keys(self.Wallet())
+            min_amount = self.__getXEP('//*[@id="minPayout"]').send_keys(0)
             self.__getXEC(
                 "/html/body/div/div/main/div/div/div[2]/div[2]/div/div[2]/button"
             ).click()
