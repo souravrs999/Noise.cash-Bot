@@ -195,7 +195,7 @@ class NoiseCash:
 
     def likeShit(self):
         print("--- Liking stuff")
-        for x in range(1, 31):
+        for x in range(1, 21):
             likeBtnsXpaths = f'//*[@id="app"]/div/main/div/div/div[4]/div/div[{x}]/div/div[2]/div[2]/div[3]/div[8]/button'
             likeBtn = self.__getXEC(likeBtnsXpaths).click()
 
@@ -206,6 +206,10 @@ class NoiseCash:
         self.likeShit()
         try:
             random_joke = self.getRandJoke()
+            random_joke = "".join(
+                np.random.choice([str.upper, str.lower], p=[0.05, 0.95])(c)
+                for c in random_joke
+            )
             txt_area = self.__getXEC(
                 "/html/body/div/div/main/div/div/div[2]/div/div/textarea"
             ).click()
@@ -234,6 +238,10 @@ class NoiseCash:
         self.likeShit()
         try:
             random_quote = self.getRandQuote()
+            random_quote = "".join(
+                np.random.choice([str.upper, str.lower], p=[0.05, 0.95])(c)
+                for c in random_quote
+            )
             txt_area = self.__getXEC(
                 "/html/body/div/div/main/div/div/div[2]/div/div/textarea"
             ).click()
