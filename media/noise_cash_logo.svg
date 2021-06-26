@@ -1,0 +1,17 @@
+<svg width="447px" height="447px" viewBox="0 0 447 447" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="noise-logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Path" fill="#929FA6" points="321.534048 30.9986606 374.5 18 374.5 60.3853211 321.5 73"></polygon>
+        <polygon id="Path" fill="#929FA6" points="321.534048 105.762321 374.5 93 374.5 134.614679 321.5 147"></polygon>
+        <polygon id="Path" fill="#929FA6" points="353.022485 170.508214 388 162 388 189.743119 353 198"></polygon>
+        <polygon id="Path" stroke="#979797" fill="#929FA6" points="383.021842 83.2718749 417 75 417 101.972477 383 110"></polygon>
+        <polygon id="Path" fill="#929FA6" points="383.021842 16.2718749 417 8 417 34.9724771 383 43"></polygon>
+        <polygon id="Path" fill="#929FA6" points="383.021842 83.2718749 417 75 417 101.972477 383 110"></polygon>
+        <polygon id="Path" fill="#929FA6" points="349.014776 71.6721428 372 66 372 84.4954128 349 90"></polygon>
+        <polygon id="Path" fill="#929FA6" points="389.014776 55.4358035 412 50 412 67.7247706 389 73"></polygon>
+        <polygon id="Path" fill="#929FA6" points="424.014776 5.67214281 447 0 447 18.4954128 424 24"></polygon>
+        <polygon id="Path" fill="#929FA6" points="329.010279 179.781429 345 176 345 188.330275 329 192"></polygon>
+        <polygon id="Path" fill="#929FA6" points="354.010279 145.781429 370 142 370 154.330275 354 158"></polygon>
+        <polygon id="Path" fill="#929FA6" points="322.014776 156.435804 345 151 345 168.724771 322 174"></polygon>
+        <path d="M0,447 C0,220.96558 0,107.948371 0,107.948371 C59.2005208,93.8416524 88.8007812,86.7882933 88.8007812,86.7882933 L221.845703,269.520665 L222.056569,55.0080599 L311.056569,34 L311,372.850777 L222.056569,393.858837 L89,211.526931 L89,426.832263 L0,447 Z" id="Path-2" fill="#929FA6"></path>
+    </g>
+</svg>

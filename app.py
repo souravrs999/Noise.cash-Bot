@@ -2,7 +2,6 @@
 import time
 import os
 import json
-import pickle
 import numpy as np
 import random
 
@@ -26,41 +25,8 @@ class NoiseCash:
         self.login_url = "https://noise.cash/login"
         self.wallet_url = "https://noise.cash/settings/wallet"
         self.chamber_url = [
-            "https://noise.cash/n/jokesquotes",
-            "https://noise.cash/n/funquotes",
-            "https://noise.cash/n/cleanjokes",
-            "https://noise.cash/n/quickjokes",
-            "https://noise.cash/n/quickthoughts",
-            "https://noise.cash/n/giggle",
-            "https://noise.cash/n/laughoutloud",
-            "https://noise.cash/n/bright",
-            "https://noise.cash/n/stupidquotes",
-            "https://noise.cash/n/badjokes",
-            "https://noise.cash/n/mindchurn",
-            "https://noise.cash/n/kevinsthoughts",
-            "https://noise.cash/n/timepass",
-            "https://noise.cash/n/quicktips",
-            "https://noise.cash/n/noiselife",
-            "https://noise.cash/n/laughmate",
-            "https://noise.cash/n/sog",
-            "https://noise.cash/n/dumbquotes",
-            "https://noise.cash/n/yipeeyay",
-            "https://noise.cash/n/mindbend",
-            "https://noise.cash/n/idontgetit",
-            "https://noise.cash/n/ttv",
-            "https://noise.cash/n/inception",
-            "https://noise.cash/n/hahaha",
-            "https://noise.cash/n/wordlove",
-            "https://noise.cash/n/wordmemes",
-            "https://noise.cash/n/koolaid",
-            "https://noise.cash/n/smallpp",
-            "https://noise.cash/n/bigpppeople",
-            "https://noise.cash/n/bigbangtheory",
-            "https://noise.cash/n/jimbrootan",
-            "https://noise.cash/n/manoharam",
-            "https://noise.cash/n/vadakkanselfie",
-            "https://noise.cash/n/mathilukal",
-        ]
+            "https://noise.cash/n/url1",
+            "https://noise.cash/n/url2",]
         self.driver = webdriver.Chrome(
             executable_path=str(os.environ.get("CHROMEDRIVER_PATH")),
             options=self._getOpts(),
@@ -340,7 +306,7 @@ if __name__ == "__main__":
         for user in users:
             user = user.split("\n")[0].split(",")
             try:
-                bot = NoiseCash(user[0], user[1], "hadron*5000")
+                bot = NoiseCash(user[0], user[1], <your_password>)
                 bot.Login()
                 topic = random.choice(["joke", "quote"])
                 print(f"--- Topic {topic}")
